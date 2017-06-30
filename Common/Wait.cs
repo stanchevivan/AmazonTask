@@ -42,7 +42,7 @@ namespace Common
                 );
         }
 
-        public static void ForAsyncLoad()
+        public static void ForLoad()
         {
             new WebDriverWait(new SystemClock(), Driver.Instance, TimeSpan.FromSeconds(20), TimeSpan.FromMilliseconds(20)).Until<bool>
                    (x =>

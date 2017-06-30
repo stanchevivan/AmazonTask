@@ -7,6 +7,7 @@ namespace Common
     public static class Driver
     {
         private static IWebDriver m_Instance;
+
         public static IWebDriver Instance
         {
             get
@@ -18,6 +19,7 @@ namespace Common
 
                 return m_Instance;
             }
+
             set
             {
                 m_Instance = value;

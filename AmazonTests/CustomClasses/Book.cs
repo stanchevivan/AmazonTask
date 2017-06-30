@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AmazonTests
 {
     public class Book
     {
         public string Title;
-        public IDictionary<string, string> PriceForFormat;
-        public IList<string> Badges;
+        public int Quantity;
+        public IDictionary<string, string> FormatPrice = new Dictionary<string, string>();
+        public IList<string> Badges = new List<string>();
     }
 }

@@ -11,84 +11,53 @@ namespace PageObjects
     {
         public BookResultsPage()
         {
-            Wait.ForElementPresent(ResultContainer);
-            Wait.ForAsyncLoad();
+            Wait.ForElementPresent(m_ResultContainer);
+            Wait.ForLoad();
         }
 
-#region WebElements
+        #region WebElements
         [FindsBy (How = How.CssSelector, Using = "#s-results-list-atf > li")]
-        private IList<IWebElement> LST_Results;
+        private IList<IWebElement> m_LST_Results;
         [FindsBy(How = How.CssSelector, Using = ".loadingSpinner")]
-        private IWebElement LoadingSpinner;
+        private IWebElement m_LoadingSpinner;
         [FindsBy(How = How.Id, Using = "s-results-list-atf")]
-        private IWebElement ResultContainer;
-#endregion
+        private IWebElement m_ResultContainer;
+        #endregion
 
-        public IList<Book> Books
+        #region Methods
+        public Book GetBook(int index)
         {
-            get
+            Book m_Book = new Book();
+            m_Book.Title = Get.Text(m_LST_Results[index - 1].FindElement(By.CssSelector(".s-access-title")));
+
+            var formats = m_LST_Results[index - 1].FindElements(By.CssSelector("[Title]:not(.s-access-detail-page)"));
+            var prices = m_LST_Results[index - 1].FindElements(By.CssSelector(".s-price"));
+            
+            for(int i = 0; i< formats.Count; i++)
             {
-                var temp = new List<Book>();
-                foreach (var result in LST_Results)
-                {
-                    temp.Add(new Book
-                    {
-                        Badges = result.FindElements(By.CssSelector(".sx-badge-text")).Select(x => Get.Text(x)).ToList(),
-                        Title = Get.Text(result.FindElement(By.CssSelector(".s-access-detail-page"))),
-                    });
-                }
-                return temp;
+                m_Book.FormatPrice.Add(Get.Text(formats[i]), Get.Text(prices[i]));
             }
+
+            m_Book.Badges = m_LST_Results[index - 1].FindElements(By.CssSelector(".sx-badge-text")).Select(x => x.Text).ToList();
+
+            return m_Book;
         }
 
-#region Methods
-        private IWebElement GetResult(int number)
+        public bool IsBookBestSeller(int index)
         {
-            return LST_Results[number - 1];
+            return GetBook(index).Badges.Any(x => x == "Best Seller");
         }
 
-        public string GetTitleOfResult(int number)
+        public bool IsBookHardcover(int index)
         {
-            return Get.Text(GetResult(number).FindElement(By.CssSelector(".s-access-detail-page")));
+            return GetBook(index).FormatPrice.Keys.Any(x => x == "Hardcover");
         }
 
-        public BookResultsPage OpenResult(int number)
+        public BookDetailsPage OpenDetailsForItem(int index)
         {
-            Do.Click(GetResult(number).FindElement(By.CssSelector(".s-access-detail-page")));
-
-            return this;
+            Do.Click(m_LST_Results[index - 1].FindElement(By.CssSelector(".s-access-detail-page")));
+            return new BookDetailsPage();
         }
-
-        private IList<IWebElement> GetBadgesForResult(int number)
-        {
-            return GetResult(number).FindElements(By.CssSelector(".sx-badge-text"));
-        }
-
-        public bool IsResultBestSeller(int number)
-        {
-            return GetBadgesForResult(number).Any(x => Get.Text(x) == "Best Seller");
-            //return Books[number + 1].Badges.Any(x => x == "Best Seller");
-        }
-
-        private IList<IWebElement> GetFormatsForResult(int number)
-        {
-            return GetResult(number).FindElements(By.CssSelector("[Title]:not(.s-access-detail-page)"));
-        }
-
-        public bool IsResultHardcover(int number)
-        {
-            return GetFormatsForResult(number).Any(x => Get.Text(x) == "Hardcover");
-        }
-
-        private IList<IWebElement> GetPricesForResult(int number)
-        {
-            return GetResult(number).FindElements(By.CssSelector(".s-price"));
-        }
-
-        public string GetFirstPriceForResult(int number)
-        {
-            return Get.Text(GetPricesForResult(number).First());
-        }
-#endregion
+        #endregion
     }
 }

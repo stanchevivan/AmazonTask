@@ -1,8 +1,6 @@
-﻿using System;
-using Common;
+﻿using Common;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Support.UI;
 
 namespace PageObjects
@@ -14,18 +12,16 @@ namespace PageObjects
             PageFactory.InitElements(Driver.Instance, this);
         }
 
-#region WebElements
+        #region WebElements
         [FindsBy(How = How.Id, Using = "twotabsearchtextbox")]
         private IWebElement FLD_Search;
-
         [FindsBy(How = How.CssSelector, Using = ".nav-input[type=submit]")]
         private IWebElement BTN_SubmitText;
-
         [FindsBy(How = How.Id, Using = "searchDropdownBox")]
         private IWebElement DDL_Departments;
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
         public BookResultsPage SearchBooks(string text)
         {
             FilterSearchBy("Books");
@@ -54,6 +50,6 @@ namespace PageObjects
 
             return this;
         }
-#endregion
+        #endregion
     }
 }
