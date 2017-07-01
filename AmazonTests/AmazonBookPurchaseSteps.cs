@@ -32,7 +32,7 @@ namespace AmazonTests
         [When]
         public void When_I_Search_for_P0_in_section_books(string p0)
         {
-            bookResultsPage = homePage.SearchBooks("Harry Potter and the Cursed Child ");
+            bookResultsPage = homePage.SearchBook("Harry Potter and the Cursed Child ");
         }
 
         [Then]

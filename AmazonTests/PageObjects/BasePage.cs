@@ -22,7 +22,7 @@ namespace PageObjects
         #endregion
 
         #region Methods
-        public BookResultsPage SearchBooks(string text)
+        public BookResultsPage SearchBook(string text)
         {
             FilterSearchBy("Books");
             EnterIn_SearchField(text);

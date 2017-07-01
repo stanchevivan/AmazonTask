@@ -18,7 +18,7 @@ namespace AmazonTests.Tests
                 homePage.CheckURL("https://www.amazon.co.uk/");
 
                 var bookResultsPage = homePage
-                    .SearchBooks("Harry Potter and the Cursed Child ");
+                    .SearchBook("Harry Potter and the Cursed Child ");
             
                 Assert.That(bookResultsPage.GetBook(1).Title, Is.EqualTo(m_ExpectedTitle));
                 Assert.That(bookResultsPage.IsBookBestSeller(1), Is.True);

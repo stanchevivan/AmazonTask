@@ -33,6 +33,11 @@ namespace PageObjects
             var formats = m_LST_Results[index - 1].FindElements(By.CssSelector("[Title]:not(.s-access-detail-page)"));
             var prices = m_LST_Results[index - 1].FindElements(By.CssSelector(".s-price"));
             
+            if(formats.Count != prices.Count)
+            {
+                throw new System.Exception("Could not match book formats with prices !");
+            }
+
             for(int i = 0; i< formats.Count; i++)
             {
                 m_Book.FormatPrice.Add(Get.Text(formats[i]), Get.Text(prices[i]));
