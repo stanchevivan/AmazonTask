@@ -19,13 +19,14 @@ namespace PageObjects
         public Book GetBookItem(int index)
         {
             Book m_Book = new Book();
+
             m_Book.Title = Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".sc-product-title")));
             m_Book.FormatPrice.Add(
-                Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".sc-product-binding"))),
-                Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".sc-product-price")))
-                );
+            Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".sc-product-binding"))),
+            Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".sc-product-price")))
+            );
             m_Book.Quantity = int.Parse(Get.Text(m_LST_Items[index - 1].FindElement(By.CssSelector(".quantity"))));
-
+        
             return m_Book;
         }
 

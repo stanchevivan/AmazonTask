@@ -50,6 +50,11 @@ namespace PageObjects
 
             return this;
         }
+
+        public bool CheckURL(string url)
+        {
+            return Driver.Instance.Url == url;
+        }
         #endregion
     }
 }

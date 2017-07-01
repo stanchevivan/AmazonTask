@@ -14,7 +14,10 @@ namespace AmazonTests.Tests
             {
                 string m_ExpectedTitle = "Harry Potter and The Cursed Child - Parts One and Two: The Official Script Book of the Original West End Production (Special Rehearsal Edition)";
 
-                var bookResultsPage = HomePage.Initialize()
+                var homePage = HomePage.Initialize();
+                homePage.CheckURL("https://www.amazon.co.uk/");
+
+                var bookResultsPage = homePage
                     .SearchBooks("Harry Potter and the Cursed Child ");
             
                 Assert.That(bookResultsPage.GetBook(1).Title, Is.EqualTo(m_ExpectedTitle));

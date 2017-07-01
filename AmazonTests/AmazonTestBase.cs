@@ -2,7 +2,7 @@
 
 namespace AmazonTests
 {
-    class AmazonTestBase : CommonTestBase
+    public class AmazonTestBase : CommonTestBase
     {
     }
 }
