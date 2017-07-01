@@ -5,7 +5,7 @@ using System.Linq;
 namespace AmazonTests.Tests
 {
     [TestFixture]
-    class TestScenario1 : AmazonTestBase
+    class AmazonBookPurchase : AmazonTestBase
     {
         [Test]
         public void Test()
